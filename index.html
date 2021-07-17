@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Hello GSAP</title>
+    <style>
+      * {
+        font-family: "Lato", sans-serif;
+      }
+      body {
+        overflow: hidden;
+      }
+      #btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: none;
+        background-color: royalblue;
+        color: white;
+        cursor: pointer;
+      }
+
+      .second-text,
+      .third-text {
+        position: absolute;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="btn">
+      <p class="first-text">Animate !</p>
+      <h1 class="second-text">Hello world !</h1>
+      <h2 class="third-text">Have a nice day :)</h2>
+    </div>
+    <script>
+      let isActive = false;
+
+      const timeline = gsap.timeline({ paused: true });
+
+      const bouceBtn = gsap.to("#btn", {
+        duration: 0.5,
+        y: 200,
+        yoyo: true,
+        repeat: 1,
+      });
+
+      const tweens = gsap.to("#btn", {
+        duration: 0.5,
+        width: 2000,
+        height: 2000,
+      });
+
+      const firstText = gsap.to(".first-text", {
+        duration: 0.5,
+        y: -16,
+        opacity: 0,
+      });
+
+      const secondText = gsap.to(".second-text", {
+        duration: 0.5,
+        y: -16,
+        opacity: 1,
+      });
+
+      const secondTextFadeOut = gsap.to(".second-text", {
+        delay: 1,
+        duration: 1,
+        y: -32,
+        opacity: 0,
+      });
+
+      const thirdText = gsap.to(".third-text", {
+        duration: 0.5,
+        y: -16,
+        opacity: 1,
+      });
+
+      timeline.add(bouceBtn);
+      timeline.add(tweens);
+      timeline.add(firstText);
+      timeline.add(secondText);
+      timeline.add(secondTextFadeOut);
+      timeline.add(thirdText);
+
+      document.getElementById("btn").addEventListener("click", () => {
+        if (!isActive) {
+          isActive = true;
+          timeline.play();
+          return;
+        }
+
+        isActive = false;
+        timeline.reverse();
+      });
+    </script>
+  </body>
+</html>
